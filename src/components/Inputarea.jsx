@@ -34,12 +34,12 @@ function InputArea(props) {
           onChange={handleInput}
           value={inputText.title}
         ></input>
-        <input
-          placeholder="Content"
+        <textarea
+          placeholder="Take a note"
           name="content"
           onChange={handleInput}
           value={inputText.content}
-        ></input>
+        ></textarea>
         <button
           type="submit"
           className="button"
