@@ -1,6 +1,11 @@
 import React, { useState } from "react";
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import { Fab } from "@mui/material";
+import { Zoom } from "@mui/material";
 
 function InputArea(props) {
+  const [isExpanded, setExpanded] = useState(false);
+
   const [inputText, setInputText] = useState({
     title: "",
     content: "",
@@ -21,38 +26,57 @@ function InputArea(props) {
     props.onAdd(inputText);
     setInputText({
       title: "",
-      content: ""
+      content: "",
     });
+  }
+
+  function Expand() {
+    setExpanded(true);
   }
 
   return (
     <>
-      <form className="notes-Input" onSubmit={submitNote} >
-        <input
-          placeholder="Title"
-          name="title"
-          onChange={handleInput}
-          value={inputText.title}
-        ></input>
+      <form className="create-note" onSubmit={submitNote}>
+        {isExpanded ? (
+          <input
+            placeholder="Title"
+            name="title"
+            onChange={handleInput}
+            value={inputText.title}
+          ></input>
+        ) : null}
+
         <textarea
-          placeholder="Take a note"
+          onClick={Expand}
+          placeholder="Take a note...."
           name="content"
           onChange={handleInput}
           value={inputText.content}
+          rows={isExpanded ? 3 : 1}
         ></textarea>
-        <button
-          type="submit"
-          className="button"
-          /*onClick={() => {
+
+       
+        <Zoom in={isExpanded}>
+          <Fab
+            className="button"
+            type="submit"
+            /*onClick={() => {
             props.onAdd(inputText);
             setInputText({
               title: "",
               content: "",
             });
           }}*/
-        >
-          ADD
-        </button>
+            sx={{
+              ":hover": {
+                color: "#fffcfc",
+                backgroundColor: "#424242",
+              },
+            }}
+          >
+            +
+          </Fab>
+        </Zoom>
       </form>
     </>
   );
